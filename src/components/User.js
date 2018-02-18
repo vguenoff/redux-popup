@@ -56,6 +56,7 @@ const StyledUser = styled.div`
     border-radius: 50%;
     margin: 0 1.3rem 1.7rem 0;
   }
+  
   > span {
     vertical-align: top;
     display: inline-block;

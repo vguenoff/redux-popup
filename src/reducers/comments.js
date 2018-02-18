@@ -3,7 +3,6 @@ import dateFormat from 'dateformat';
 
 import { actions } from '../actions';
 
-// reducer
 const comments = (state = [], action) => {
   const { type, payload } = action;
 
@@ -14,7 +13,6 @@ const comments = (state = [], action) => {
       return [
         {
           id: uuid(),
-          imgUrl: '../assets/jh.jpg',
           userName: 'James Hetfield',
           time: dateFormat(now, 'mmmm d, yyyy, h:MM TT'),
           text: payload,

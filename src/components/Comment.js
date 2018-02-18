@@ -54,14 +54,14 @@ class Comment extends Component {
             onSubmit={e => this.onReplySubmit(e)}
           />
           {renderedReplies.map(reply =>
-          (<User
-            key={reply.id}
-            userName={reply.userName}
-            time={reply.time}
-            text={reply.text}
-            reply
-          />),
-        )}
+            (<User
+              key={reply.id}
+              userName={reply.userName}
+              time={reply.time}
+              text={reply.text}
+              reply
+            />),
+          )}
         </ReplyIconWrapper>
       </StyledComment>
     );
