@@ -34,6 +34,7 @@ const StyledInput = styled.div`
     border: 0.2rem solid #efefed;
     border-radius: 0.35rem;
     -webkit-appearance: none;
+    margin-bottom: 
 
     &:focus {
       outline: none;

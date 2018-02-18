@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { string, func } from 'prop-types';
+import { string, func, arrayOf, shape } from 'prop-types';
 import YouTube from 'react-youtube';
 import styled from 'styled-components';
 
-import { commentUpdate } from '../actions';
+import { addNewComment } from '../actions';
 
 import Popup from './Popup';
 import Input from './Input';
 import SocialIcon from './SocialIcon';
 import Button from './Button';
+import Comment from './Comment';
 
 import like from '../assets/like.png';
 import share from '../assets/share.png';
@@ -19,8 +20,10 @@ class VideoPlayer extends Component {
     inputValue: 'comment...',
   }
 
-  onCommentSubmit = () => {
-    this.props.onCommentUpdate(this.state.inputValue);
+  onCommentSubmit = (e) => {
+    e.preventDefault();
+
+    this.props.onAddNewComment(this.state.inputValue);
     this.setState({ inputValue: 'comment...' });
   }
 
@@ -37,9 +40,18 @@ class VideoPlayer extends Component {
         <Input
           value={this.state.inputValue}
           onChange={e => this.setState({ inputValue: e.target.value })}
-          onSubmit={this.onCommentSubmit}
+          onSubmit={e => this.onCommentSubmit(e)}
         />
-        {/* list of comments here */}
+        <StyledSeparator />
+        {this.props.comments.map(comment =>
+          (<Comment
+            key={comment.id}
+            id={comment.id}
+            userName={comment.userName}
+            time={comment.time}
+            text={comment.text}
+          />),
+        )}
       </Popup>
     );
   }
@@ -47,7 +59,14 @@ class VideoPlayer extends Component {
 
 VideoPlayer.propTypes = {
   videoUrl: string,
-  onCommentUpdate: func.isRequired,
+  onAddNewComment: func.isRequired,
+  comments: arrayOf(shape({
+    id: string.isRequired,
+    imgUrl: string.isRequired,
+    userName: string.isRequired,
+    time: string.isRequired,
+    text: string.isRequired,
+  })).isRequired,
 };
 
 VideoPlayer.defaultProps = {
@@ -69,9 +88,16 @@ const YouTubeWrapper = styled.div`
   }
 `;
 
+const StyledSeparator = styled.div`
+  width: 100%;
+  height: 0.15rem;
+  background: #e6e6e6;
+  margin: 3rem 0;
+`;
+
 export default connect(({ video, comments }) => ({
   videoUrl: video.videoUrl,
   comments,
 }), {
-  onCommentUpdate: commentUpdate,
+  onAddNewComment: addNewComment,
 })(VideoPlayer);

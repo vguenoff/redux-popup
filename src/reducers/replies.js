@@ -4,20 +4,21 @@ import dateFormat from 'dateformat';
 import { actions } from '../actions';
 
 // reducer
-const comments = (state = [], action) => {
+const replies = (state = [], action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case actions.addNewComment: {
+    case actions.addNewReply: {
       const now = new Date();
 
       return [
         {
+          commentId: payload.id,
           id: uuid(),
           imgUrl: '../assets/jh.jpg',
-          userName: 'James Hetfield',
+          userName: 'Dave Mustaine',
           time: dateFormat(now, 'mmmm d, yyyy, h:MM TT'),
-          text: payload,
+          text: payload.text,
         },
         ...state,
       ];
@@ -27,4 +28,4 @@ const comments = (state = [], action) => {
   }
 };
 
-export default comments;
+export default replies;
