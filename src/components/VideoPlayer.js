@@ -8,6 +8,11 @@ import { commentUpdate } from '../actions';
 
 import Popup from './Popup';
 import Input from './Input';
+import SocialIcon from './SocialIcon';
+import Button from './Button';
+
+import like from '../assets/like.png';
+import share from '../assets/share.png';
 
 class VideoPlayer extends Component {
   state = {
@@ -22,17 +27,19 @@ class VideoPlayer extends Component {
   render() {
     return (
       <Popup>
-        <VideoPlayerWrapper>
-          <YouTubeWrapper>
-            <YouTube videoId={this.props.videoUrl} />
-          </YouTubeWrapper>
-          <Input
-            value={this.state.inputValue}
-            onChange={e => this.setState({ inputValue: e.target.value })}
-            onSubmit={this.onCommentSubmit}
-          />
-          {/* list of comments here */}
-        </VideoPlayerWrapper>
+        <YouTubeWrapper>
+          <YouTube videoId={this.props.videoUrl} />
+        </YouTubeWrapper>
+        <SocialIcon src={like} value="like" />
+        <SocialIcon src={share} value="share" />
+        <Button color="#ea445b" value="delete" />
+        <Button color="#363636" value="edit" />
+        <Input
+          value={this.state.inputValue}
+          onChange={e => this.setState({ inputValue: e.target.value })}
+          onSubmit={this.onCommentSubmit}
+        />
+        {/* list of comments here */}
       </Popup>
     );
   }
@@ -46,12 +53,6 @@ VideoPlayer.propTypes = {
 VideoPlayer.defaultProps = {
   videoUrl: null,
 };
-
-const VideoPlayerWrapper = styled.div`
-  Input {
-    margin: 4rem 0;
-  }
-`;
 
 const YouTubeWrapper = styled.div`
   position: relative;

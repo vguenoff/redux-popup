@@ -17,6 +17,7 @@ const Input = ({ value, onChange, onSubmit }) => (
 Input.propTypes = {
   value: string,
   onChange: func.isRequired,
+  onSubmit: func.isRequired,
 };
 
 Input.defaultProps = {
@@ -27,6 +28,7 @@ const StyledInput = styled.div`
   input {
     width: 100%;
     font-size: 1.8rem;
+    font-style: italic;
     color: #8e9197;
     padding: 1.7rem;
     border: 0.2rem solid #efefed;
