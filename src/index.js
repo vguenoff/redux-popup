@@ -20,12 +20,14 @@ import App from './components/App';
 
 // reducers
 import video from './reducers/video';
+import comments from './reducers/comments';
 
 // store config
 const history = createHistory();
 
 const reducers = combineReducers({
   video,
+  comments,
   router: routerReducer,
 });
 

@@ -2,13 +2,15 @@ import React from 'react';
 import { string, func } from 'prop-types';
 import styled from 'styled-components';
 
-const Input = ({ value, onChange }) => (
+const Input = ({ value, onChange, onSubmit }) => (
   <StyledInput>
-    <input
-      type="text"
-      value={value}
-      onChange={onChange}
-    />
+    <form onSubmit={onSubmit}>
+      <input
+        type="text"
+        value={value}
+        onChange={onChange}
+      />
+    </form>
   </StyledInput>
 );
 
@@ -22,12 +24,13 @@ Input.defaultProps = {
 };
 
 const StyledInput = styled.div`
-  > input {
+  input {
     width: 100%;
     font-size: 1.8rem;
     color: #8e9197;
-    padding: 0.4rem;
+    padding: 1.7rem;
     border: 0.2rem solid #efefed;
+    border-radius: 0.35rem;
     -webkit-appearance: none;
 
     &:focus {

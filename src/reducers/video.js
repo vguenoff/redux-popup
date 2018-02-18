@@ -1,4 +1,4 @@
-import { actions } from '../actions/video';
+import { actions } from '../actions';
 
 // helper
 const youtubeParser = (url) => {

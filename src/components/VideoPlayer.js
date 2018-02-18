@@ -1,47 +1,76 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { string, func } from 'prop-types';
-// import styled from 'styled-components';
+import { string, func } from 'prop-types';
+import YouTube from 'react-youtube';
+import styled from 'styled-components';
 
-// import { videoUrlLoaded } from '../actions/video';
+import { commentUpdate } from '../actions';
 
-// import Input from './shared/Input';
+import Popup from './Popup';
+import Input from './Input';
 
 class VideoPlayer extends Component {
-  // componentWillMount() {
-  //   this.props.onVideoUrlLoaded();
-  // }
+  state = {
+    inputValue: 'comment...',
+  }
+
+  onCommentSubmit = () => {
+    this.props.onCommentUpdate(this.state.inputValue);
+    this.setState({ inputValue: 'comment...' });
+  }
 
   render() {
     return (
-      <Fragment>
-        <p>video player</p>
-      </Fragment>
+      <Popup>
+        <VideoPlayerWrapper>
+          <YouTubeWrapper>
+            <YouTube videoId={this.props.videoUrl} />
+          </YouTubeWrapper>
+          <Input
+            value={this.state.inputValue}
+            onChange={e => this.setState({ inputValue: e.target.value })}
+            onSubmit={this.onCommentSubmit}
+          />
+          {/* list of comments here */}
+        </VideoPlayerWrapper>
+      </Popup>
     );
   }
 }
 
-// VideoPlayer.propTypes = {
-//   inputValue: string,
-//   videoUrl: string,
-//   onVideoUrlUpdate: func.isRequired,
-// };
+VideoPlayer.propTypes = {
+  videoUrl: string,
+  onCommentUpdate: func.isRequired,
+};
 
-// VideoPlayer.defaultProps = {
-//   inputValue: '',
-//   videoUrl: null,
-// };
+VideoPlayer.defaultProps = {
+  videoUrl: null,
+};
 
-// const Warning = styled.div`
-//   > p {
-//     color: #ea445b;
-//     font-size: 1.2rem;
-//     margin: 0.4rem;
-//   }
-// `;
+const VideoPlayerWrapper = styled.div`
+  Input {
+    margin: 4rem 0;
+  }
+`;
 
-export default connect(({ video }) => ({
+const YouTubeWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+export default connect(({ video, comments }) => ({
   videoUrl: video.videoUrl,
+  comments,
 }), {
-  // onVideoUrlLoaded: videoUrlLoaded,
+  onCommentUpdate: commentUpdate,
 })(VideoPlayer);

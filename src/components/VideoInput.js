@@ -1,31 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { string, func } from 'prop-types';
 import styled from 'styled-components';
 
-import { videoUrlUpdate } from '../actions/video';
+import { videoUrlUpdate, changeScreen } from '../actions';
 
 import Popup from './Popup';
 import Input from './Input';
 
-const VideoInput = ({ inputValue, videoUrl, onVideoUrlUpdate }) => (
-  <Popup>
-    <Input
-      value={inputValue}
-      onChange={e => onVideoUrlUpdate(e.target.value)}
-    />
-    {!videoUrl &&
-      <Warning>
-        <p>Please enter a valid youtube url.</p>
-      </Warning>
+class VideoInput extends Component {
+  componentDidUpdate() {
+    const { videoUrl, onChangeScreen } = this.props;
+
+    if (videoUrl) {
+      onChangeScreen('/video-player');
     }
-  </Popup>
-);
+  }
+
+  render() {
+    const { inputValue, videoUrl, onVideoUrlUpdate } = this.props;
+
+    return (
+      <Popup>
+        <Input
+          onSubmit={e => e.preventDefault()}
+          value={inputValue}
+          onChange={e => onVideoUrlUpdate(e.target.value)}
+        />
+        {!videoUrl &&
+          <Warning>
+            <p>Please enter a valid youtube url.</p>
+          </Warning>
+        }
+      </Popup>
+    );
+  }
+}
 
 VideoInput.propTypes = {
   inputValue: string,
   videoUrl: string,
   onVideoUrlUpdate: func.isRequired,
+  onChangeScreen: func.isRequired,
 };
 
 VideoInput.defaultProps = {
@@ -46,4 +62,5 @@ export default connect(({ video }) => ({
   videoUrl: video.videoUrl,
 }), {
   onVideoUrlUpdate: videoUrlUpdate,
+  onChangeScreen: changeScreen,
 })(VideoInput);
