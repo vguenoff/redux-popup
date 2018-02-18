@@ -1,31 +1,19 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { node } from 'prop-types';
 import styled from 'styled-components';
-import store from '../store';
-
-import VideoInput from './VideoInput';
-import VideoPlayer from './VideoPlayer';
 
 import close from '../assets/close.png';
 
-const Popup = () => (
-  <Provider store={store}>
-    <PopupWrapper>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={VideoInput} />
-          <Route path="/video-player" component={VideoPlayer} />
-        </Switch>
-      </Router>
-      <Close />
-    </PopupWrapper>
-  </Provider>
+const Popup = ({ children }) => (
+  <PopupWrapper>
+    {children}
+    <Close />
+  </PopupWrapper>
 );
+
+Popup.propTypes = {
+  children: node.isRequired,
+};
 
 const PopupWrapper = styled.div`
   position: relative;

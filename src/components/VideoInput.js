@@ -1,16 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { string, func } from 'prop-types';
 import styled from 'styled-components';
 
 import { videoUrlUpdate } from '../actions/video';
 
-import Input from './shared/Input';
+import Popup from './Popup';
+import Input from './Input';
 
-// react-router-redux
-// func called onChange; if gotoVideo => navigateTo()
 const VideoInput = ({ inputValue, videoUrl, onVideoUrlUpdate }) => (
-  <Fragment>
+  <Popup>
     <Input
       value={inputValue}
       onChange={e => onVideoUrlUpdate(e.target.value)}
@@ -20,7 +19,7 @@ const VideoInput = ({ inputValue, videoUrl, onVideoUrlUpdate }) => (
         <p>Please enter a valid youtube url.</p>
       </Warning>
     }
-  </Fragment>
+  </Popup>
 );
 
 VideoInput.propTypes = {
