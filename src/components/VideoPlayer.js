@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import { string, func } from 'prop-types';
 // import styled from 'styled-components';
 
-import { videoUrlLoaded } from '../actions/video';
+// import { videoUrlLoaded } from '../actions/video';
 
 // import Input from './shared/Input';
 
@@ -43,6 +42,6 @@ class VideoPlayer extends Component {
 
 export default connect(({ video }) => ({
   videoUrl: video.videoUrl,
-}), dispatch => bindActionCreators({
-  onVideoUrlLoaded: videoUrlLoaded,
-}, dispatch))(VideoPlayer);
+}), {
+  // onVideoUrlLoaded: videoUrlLoaded,
+})(VideoPlayer);

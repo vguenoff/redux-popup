@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import {
-  Router,
+  BrowserRouter as Router,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -13,12 +13,10 @@ import VideoPlayer from './VideoPlayer';
 
 import close from '../assets/close.png';
 
-import history from '../history';
-
 const Popup = () => (
   <Provider store={store}>
     <PopupWrapper>
-      <Router history={history}>
+      <Router>
         <Switch>
           <Route exact path="/" component={VideoInput} />
           <Route path="/video-player" component={VideoPlayer} />

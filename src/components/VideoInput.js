@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
-import { string, bool, func } from 'prop-types';
+import { string, func } from 'prop-types';
 import styled from 'styled-components';
 
 import { videoUrlUpdate } from '../actions/video';
@@ -10,15 +8,14 @@ import { videoUrlUpdate } from '../actions/video';
 import Input from './shared/Input';
 
 // react-router-redux
-// action updates
 // func called onChange; if gotoVideo => navigateTo()
-const VideoInput = ({ inputValue, gotoVideo, onVideoUrlUpdate }) => (
+const VideoInput = ({ inputValue, videoUrl, onVideoUrlUpdate }) => (
   <Fragment>
     <Input
       value={inputValue}
       onChange={e => onVideoUrlUpdate(e.target.value)}
     />
-    {!gotoVideo &&
+    {!videoUrl &&
       <Warning>
         <p>Please enter a valid youtube url.</p>
       </Warning>
@@ -28,12 +25,13 @@ const VideoInput = ({ inputValue, gotoVideo, onVideoUrlUpdate }) => (
 
 VideoInput.propTypes = {
   inputValue: string,
-  gotoVideo: bool.isRequired,
+  videoUrl: string,
   onVideoUrlUpdate: func.isRequired,
 };
 
 VideoInput.defaultProps = {
   inputValue: '',
+  videoUrl: null,
 };
 
 const Warning = styled.div`
@@ -46,7 +44,7 @@ const Warning = styled.div`
 
 export default connect(({ video }) => ({
   inputValue: video.inputValue,
-  gotoVideo: video.gotoVideo,
-}), dispatch => bindActionCreators({
+  videoUrl: video.videoUrl,
+}), {
   onVideoUrlUpdate: videoUrlUpdate,
-}, dispatch))(VideoInput);
+})(VideoInput);

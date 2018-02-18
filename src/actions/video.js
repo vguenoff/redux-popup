@@ -1,7 +1,6 @@
 export const actions = {
-  videoUrlUpdate: 'UPDATE_VIDEO_URL',
-  videoUrlLoaded: 'VIDEO_URL_LOADED',
+  videoUrlUpdate: 'VIDEO_URL_UPDATE',
 };
 
-export const videoUrlUpdate = payload => ({ type: actions.videoUrlUpdate, payload });
-export const videoUrlLoaded = () => ({ type: actions.videoUrlLoaded });
+export const videoUrlUpdate = payload => dispatch =>
+  dispatch({ type: actions.videoUrlUpdate, payload });

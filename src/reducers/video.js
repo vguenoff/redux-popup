@@ -1,11 +1,18 @@
 import { actions } from '../actions/video';
-import youtubeParser from '../helpers';
 
+// helper
+const youtubeParser = (url) => {
+  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  const match = url.match(regExp);
+
+  return (match && match[7].length === 11) ? match[7] : null;
+};
+
+// reducer
 const video = (
   state = {
     inputValue: '',
     videoUrl: '',
-    gotoVideo: false,
   },
   action,
 ) => {
@@ -16,17 +23,8 @@ const video = (
       return {
         inputValue: payload,
         videoUrl: youtubeParser(payload),
-        gotoVideo: !!youtubeParser(payload),
       };
     }
-    case actions.videoUrlLoaded: {
-      return {
-        inputValue: '',
-        videoUrl: '',
-        gotoVideo: false,
-      };
-    }
-
     default:
       return state;
   }
