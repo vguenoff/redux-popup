@@ -62,7 +62,6 @@ VideoPlayer.propTypes = {
   onAddNewComment: func.isRequired,
   comments: arrayOf(shape({
     id: string.isRequired,
-    imgUrl: string.isRequired,
     userName: string.isRequired,
     time: string.isRequired,
     text: string.isRequired,

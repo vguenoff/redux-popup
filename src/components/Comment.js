@@ -75,7 +75,6 @@ Comment.propTypes = {
   text: string.isRequired,
   replies: arrayOf(shape({
     id: string.isRequired,
-    imgUrl: string.isRequired,
     userName: string.isRequired,
     time: string.isRequired,
     text: string.isRequired,
