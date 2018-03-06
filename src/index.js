@@ -35,15 +35,23 @@ const reducers = combineReducers({
 
 const routerMiddlewareWithHistory = routerMiddleware(history);
 
+const middleware = [
+  routerMiddlewareWithHistory,
+  thunk,
+  save(),
+]
+
+// use redux-logger only on dev environment
+if (process.env.NODE_ENV === 'development') {
+  middleware.push(logger);
+}
+
 const store = createStore(
   reducers,
   load(),
   composeWithDevTools(
     applyMiddleware(
-      routerMiddlewareWithHistory,
-      thunk,
-      logger,
-      save(),
+      ...middleware
     )),
 );
 
